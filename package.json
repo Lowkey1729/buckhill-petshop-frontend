@@ -6,16 +6,28 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tailwind": "npx tailwindcss -i ./src/assets/main.css -o ./public/css/tw-styles.css --watch",
+    "tailwind-prod": "npx tailwindcss -i ./src/assets/main.css -o ./public/css/tw-styles.css --minify"
   },
   "dependencies": {
-    "tailwindcss": "^3.4.4",
-    "vue": "^3.4.29"
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.13",
+    "@types/node": "^20.14.10",
+    "axios": "^1.7.2",
+    "pinia": "^2.1.7",
+    "swiper": "^11.1.4",
+    "vue": "^3.4.29",
+    "vue-router": "^4.4.0",
+    "vuetify": "^3.6.11"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.4",
     "typescript": "^5.2.2",
-    "vite": "^5.3.1",
+    "vite": "^5.3.3",
     "vue-tsc": "^2.0.21"
   }
 }

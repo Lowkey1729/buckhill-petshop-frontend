@@ -1,7 +1,39 @@
 import './assets/main.css'
 
 import { createApp } from 'vue'
-import './style.css'
 import App from './App.vue'
+import router from './router'
+import { createPinia } from 'pinia'
 
-createApp(App).mount('#app')
+import 'vuetify/styles'
+import { createVuetify, type ThemeDefinition } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+
+
+const app = createApp(App)
+const theme: ThemeDefinition = {
+    dark: false,
+    colors: {
+        primary: '#4EC690',
+        'on-primary': '#FFFFFF',
+        'primary-light': '#EDF5F1'
+    }
+}
+
+const vuetify = createVuetify({
+    components,
+    directives,
+    theme: {
+        themes: {
+            light: theme
+        }
+    }
+})
+
+
+app.use(vuetify)
+app.use(createPinia())
+app.use(router)
+
+app.mount('#app')

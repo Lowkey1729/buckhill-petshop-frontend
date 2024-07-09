@@ -19,24 +19,28 @@ const isActive = (path: string) => {
 
 <template>
   <v-app>
-    <v-app-bar absolute :elevation="0" color="primary">
+    <v-app-bar color="primary">
       <v-container>
         <v-row align="center" justify="space-between">
-          <!-- Logo on the left -->
-          <v-col cols="auto" style="display: grid; align-content: center;">
-            <div class="text-h5 font-weight-medium">
-              Petshop
+        
+          <v-col cols="auto">
+            <div>
+             <img src="/images/logo.svg" alt="logo" />
             </div>
           </v-col>
 
-          <!-- Links in the center -->
-          <v-col cols="auto" class="d-none d-md-flex">
-            <v-btn variant="text" v-for="link in links" :active="isActive(link.route)" :key="link.text"
-                   :to="link.route">{{ link.text
-              }}</v-btn>
+
+          <v-col cols="auto" class="tw-flex">
+            <v-btn
+                variant="text"
+                v-for="link in links"
+                :active="isActive(link.route)"
+                :key="link.text"
+                :to="link.route">
+              {{ link.text}}</v-btn>
           </v-col>
 
-          <!-- Buttons on the right -->
+
           <v-col cols="auto" class="text-right">
             <v-btn prepend-icon="mdi-cart-outline" variant="outlined">
               Cart ({{ cart.count }})
@@ -55,19 +59,33 @@ const isActive = (path: string) => {
       <v-container>
         <v-row>
           <v-col>
-            <div class="text-h4 text-primary font-weight-bold">Petshop</div>
+            <div class="text-h5 font-weight-medium">
+              <img src="/images/logo2.svg" alt="logo" />
+            </div>
           </v-col>
           <v-col>
-            <h5 class="text-h6">Petshop</h5>
+            <h5 class="text-h6">Petson</h5>
+            <h5 >Blog</h5>
+            <h5 >About Us</h5>
+            <h5>Store</h5>
+            <h5>Locator</h5>
           </v-col>
           <v-col>
-            <h5 class="text-h6">Links</h5>
+            <h5 class="text-h6">Contact</h5>
+            <h5>contact@petson</h5>
+            <h5 >+385 000 000</h5>
+            <h5 >35 Shnauzer avenue, Dogville AL</h5>
           </v-col>
           <v-col>
-            <h5 class="text-h6">Links</h5>
+            <h5 class="text-h6 tw-font-bold">Information</h5>
+            <h5>Ordering and shipping</h5>
+            <h5 >FAQ</h5>
+            <h5>GDPR statement</h5>
           </v-col>
           <v-col>
-            <h5 class="text-h6">Links</h5>
+            <h5 class="xs">
+              If you can't find answer to your question, please contact our
+              customer service</h5>
           </v-col>
         </v-row>
       </v-container>

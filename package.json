@@ -11,6 +11,7 @@
     "tailwind-prod": "npx tailwindcss -i ./src/assets/main.css -o ./public/css/tw-styles.css --minify"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.13",
     "@types/node": "^20.14.10",

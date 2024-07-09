@@ -4,7 +4,7 @@ import categoryApi from '@src/apis/petshop/category';
 import {useRoute} from 'vue-router';
 import type CategoryData from '@src/apis/petshop/dtos/category';
 import productApi from '@src/apis/petshop/product';
-import type Product from '@src/apis/petshop/dtos/product';
+import type ProductData from '@src/apis/petshop/dtos/product';
 
 import ProductSearch from '@src/components/Products/Search.vue';
 import ProductCard from '@src/components/Products/Card.vue';
@@ -14,12 +14,12 @@ import type BrandData from '@src/apis/petshop/dtos/brand';
 const route = useRoute();
 
 const category = ref<CategoryData | null>();
-const loading = ref(false);
-const loadingProducts = ref(false);
-
-const products = ref<Product[]>([]);
+const products = ref<ProductData[]>([]);
 const categories = ref<CategoryData[]>([]);
 const brands = ref<BrandData[]>([]);
+
+const loading = ref(false);
+const loadingProducts = ref(false);
 
 const selectedBrand = ref<string | null>(null)
 
@@ -109,8 +109,13 @@ watch(() => route.params.uuid, () => {
                 </template>
               </v-list-item>
             </template>
-            <v-list-item @click="updateBrand(brand)" :active="selectedBrand === brand.uuid" color="info"
-                         v-for="brand of brands" :key="brand.uuid" :value="brand.uuid">
+            <v-list-item
+                @click="updateBrand(brand)"
+                :active="selectedBrand === brand.uuid"
+                color="info"
+                v-for="brand of brands"
+                :key="brand.uuid"
+                :value="brand.uuid">
               <template v-slot:title>
                 <v-list-item-title class="text-capitalize">{{ brand.title }}</v-list-item-title>
               </template>

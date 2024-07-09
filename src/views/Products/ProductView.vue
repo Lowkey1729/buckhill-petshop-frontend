@@ -18,21 +18,27 @@ const productData = ref<ProductData>();
 const loading = ref(false);
 
 const loadData = async () => {
-  loading.value = true;
-  productData.value = await productApi.fetch(route.params.uuid as string);
-  loading.value = false;
-}
+  try {
+    loading.value = true;
+    productData.value = await productApi.fetch(route.params.uuid as string);
+  } finally {
+    loading.value = false;
+  }
+};
 
 const productQuantity = computed({
   get() {
-    return cart.productCountInCart(productData.value?.uuid as string)
+    const uuid = productData.value?.uuid;
+    if (!uuid) return 0;
+
+    return cart.productCountInCart(uuid as string);
   },
 
   set(value: number) {
     if (value === 0) {
-      cart.remove(productData.value?.uuid as string)
+      cart.remove(productData.value?.uuid as string);
     } else {
-      cart.add(productData.value?.uuid as string, value)
+      cart.add(productData.value?.uuid as string, value);
     }
   }
 });
@@ -50,9 +56,13 @@ onMounted(() => {
     <v-progress-circular color="primary" indeterminate></v-progress-circular>
   </section>
   <template v-else-if="productData">
-    <div style="max-width: 1200px; margin-left: auto; margin-right: auto;">
-      <v-breadcrumbs class="text-capitalize"
-                     :items="['Homepage', productData.category.title, productData.title]"></v-breadcrumbs>
+    <div>
+      <v-breadcrumbs
+          class="text-capitalize"
+          :items="['Homepage', productData.category.title, productData.title]"
+      >
+
+      </v-breadcrumbs>
       <v-row class="my-12 align-center">
         <v-col class="text-center">
           <img :src="productData.image"  alt=""/>
@@ -63,14 +73,26 @@ onMounted(() => {
 
           <div class="text-h3 mb-4">{{ currency.format(productData.price) }}</div>
 
-          <v-number-input v-if="cart.exists(productData.uuid)" control-variant="split"
-                          v-model:model-value="productQuantity" :width="150" variant="outlined"></v-number-input>
-          <v-btn v-else @click="cart.add(productData.uuid)" prepend-icon="mdi-cart" color="primary" size="large"
-                 text="Add to cart"></v-btn>
+          <v-number-input
+              v-if="cart.exists(productData.uuid)"
+              v-model:model-value="productQuantity"
+              control-variant="split"
+              :width="200"
+              >
+
+          </v-number-input>
+          <v-btn
+              v-else
+              @click="cart.add(productData.uuid)"
+              size="large"
+              prepend-icon="mdi-cart"
+              color="primary"
+              text="Add to cart">
+          </v-btn>
         </v-col>
       </v-row>
 
-      <div class="text-body-1 mb-12">{{ productData.description }}</div>
+      <div class="tw-mb-12">{{ productData.description }}</div>
     </div>
   </template>
 </template>

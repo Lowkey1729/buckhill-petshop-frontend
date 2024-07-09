@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import {onMounted, ref, watch} from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import categoryApi from '@src/apis/petshop/category'
-import {useRoute} from 'vue-router'
+import { useRoute } from 'vue-router'
 import type CategoryData from '@src/apis/petshop/dtos/category'
 import productApi from '@src/apis/petshop/product'
 import type ProductData from '@src/apis/petshop/dtos/product'

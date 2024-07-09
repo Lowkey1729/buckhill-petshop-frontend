@@ -13,7 +13,6 @@ import '@mdi/font/css/materialdesignicons.css'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/autoplay'
-import './assets/main.css'
 
 const app = createApp(App)
 const theme: ThemeDefinition = {

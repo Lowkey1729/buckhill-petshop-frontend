@@ -19,7 +19,7 @@ const loadData = async () => {
 
   featuredCategories.value = []
   for (const category of filteredCategories) {
-    category.products = await productApi.list({
+    category.products = await productApi.all({
       limit: 20,
       category: category.uuid
     })

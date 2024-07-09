@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import {onMounted, ref, watch} from 'vue'
 import categoryApi from '@src/apis/petshop/category'
-import { useRoute } from 'vue-router'
+import {useRoute} from 'vue-router'
 import type CategoryData from '@src/apis/petshop/dtos/category'
 import productApi from '@src/apis/petshop/product'
 import type ProductData from '@src/apis/petshop/dtos/product'
@@ -40,29 +40,27 @@ const loadData = async () => {
   const loadCategories = categoryApi.all()
   const loadBrands = brandApi.list()
 
-  const [cat, cats, brnds] = await Promise.all([
+  const [_category, _categories, _brands] = await Promise.all([
     loadCategory,
     loadCategories,
     loadBrands,
     loadProducts()
   ])
 
-  category.value = cat
-  categories.value = cats
-  brands.value = brnds
+  category.value = _category
+  categories.value = _categories
+  brands.value = _brands
 
   loading.value = false
 }
 
 const loadProducts = async () => {
   loadingProducts.value = true
-  const prods = await productApi.list({
+  products.value = await productApi.all({
     category: route.params.uuid as string,
     limit: 15,
-    brand: selectedBrand.value
+    brand: selectedBrand.value ?? null
   })
-
-  products.value = prods
   loadingProducts.value = false
 }
 

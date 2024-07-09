@@ -10,7 +10,8 @@
     "tailwind": "npx tailwindcss -i ./src/assets/main.css -o ./public/css/tw-styles.css --watch",
     "tailwind-prod": "npx tailwindcss -i ./src/assets/main.css -o ./public/css/tw-styles.css --minify",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
-    "format": "prettier .  --write"
+    "format": "prettier .  --write",
+    "test:unit": "vitest"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
@@ -26,15 +27,18 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
+    "@vue/test-utils": "^2.4.6",
     "autoprefixer": "^10.4.19",
     "eslint": "^9.6.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
+    "jsdom": "^24.1.0",
     "postcss": "^8.4.39",
     "prettier": "^3.3.2",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.2.2",
     "vite": "^5.3.3",
+    "vitest": "^2.0.1",
     "vue-tsc": "^2.0.21"
   }
 }

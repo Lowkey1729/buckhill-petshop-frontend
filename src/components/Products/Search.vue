@@ -15,7 +15,7 @@ const search = (query: string) => {
   loading.value = true
 
   productApi
-    .list({ title: query, limit: 5 })
+    .all({ title: query, limit: 5 })
     .then((products) => (results.value = products))
     .finally(() => {
       loading.value = false

@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
-
 import productApi from '@src/apis/petshop/product'
-import type ProductData from '@src/apis/petshop/dtos/product'
-
-import { VNumberInput } from 'vuetify/labs/VNumberInput'
 import ProductSearch from '@src/components/Products/Search.vue'
 import { useCurrencyStore } from '@src/stores/modules/currency'
 import { useCartStore } from '@src/stores/modules/cart'
+import { VNumberInput } from 'vuetify/labs/VNumberInput'
+import type ProductData from '@src/apis/petshop/dtos/product'
 
 const route = useRoute()
 const currency = useCurrencyStore()
@@ -20,7 +18,7 @@ const loading = ref(false)
 const loadData = async () => {
   try {
     loading.value = true
-    productData.value = await productApi.fetch(route.params.uuid as string)
+    productData.value = await productApi.details(route.params.uuid as string)
   } finally {
     loading.value = false
   }

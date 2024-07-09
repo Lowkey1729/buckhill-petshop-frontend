@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@src/views/Home/HomeView.vue'
-import IndexView  from "@src/views/Category/IndexView.vue";
+import CategoryView  from "@src/views/Category/CategoryView.vue";
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
@@ -12,7 +12,7 @@ const router = createRouter({
         {
             path: '/category/:uuid',
             name: 'category',
-            component: IndexView
+            component: CategoryView
         },
     ]
 })

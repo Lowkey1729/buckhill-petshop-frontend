@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, type PropType } from 'vue';
+import { computed, type PropType } from 'vue'
 import { VNumberInput } from 'vuetify/labs/VNumberInput'
 
-import Product from '@src/apis/petshop/dtos/product';
-import { useCartStore } from '@src/stores/modules/cart';
-import { useCurrencyStore } from '@src/stores/modules/currency';
-import { useRouter } from 'vue-router';
+import Product from '@src/apis/petshop/dtos/product'
+import { useCartStore } from '@src/stores/modules/cart'
+import { useCurrencyStore } from '@src/stores/modules/currency'
+import { useRouter } from 'vue-router'
 
-const router = useRouter();
-const currency = useCurrencyStore();
-const cart = useCartStore();
+const router = useRouter()
+const currency = useCurrencyStore()
+const cart = useCartStore()
 
 const props = defineProps({
   product: {
@@ -35,7 +35,7 @@ const productQuantity = computed({
       cart.add(props.product.uuid as string, value)
     }
   }
-});
+})
 
 const navigateToProduct = () => {
   router.push({ name: 'product', params: { uuid: props.product.uuid } })
@@ -55,10 +55,20 @@ const navigateToProduct = () => {
       <div class="text-subtitle-1 font-weight-bold mb-4">{{ currency.format(product.price) }}</div>
 
       <template v-if="showAddToCart">
-        <v-number-input v-if="cart.exists(product.uuid)" control-variant="split"
-                        v-model:model-value="productQuantity" :width="150" variant="outlined"></v-number-input>
-        <v-btn v-else @click="cart.add(product.uuid)" color="primary" prepend-icon="mdi-cart"
-               text="Add to cart"></v-btn>
+        <v-number-input
+          v-if="cart.exists(product.uuid)"
+          control-variant="split"
+          v-model:model-value="productQuantity"
+          :width="150"
+          variant="outlined"
+        ></v-number-input>
+        <v-btn
+          v-else
+          @click="cart.add(product.uuid)"
+          color="primary"
+          prepend-icon="mdi-cart"
+          text="Add to cart"
+        ></v-btn>
       </template>
     </v-card-text>
   </v-card>

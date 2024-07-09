@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import {onMounted, ref, watch} from 'vue';
-import categoryApi from '@src/apis/petshop/category';
-import {useRoute} from 'vue-router';
-import type CategoryData from '@src/apis/petshop/dtos/category';
-import productApi from '@src/apis/petshop/product';
-import type ProductData from '@src/apis/petshop/dtos/product';
+import { onMounted, ref, watch } from 'vue'
+import categoryApi from '@src/apis/petshop/category'
+import { useRoute } from 'vue-router'
+import type CategoryData from '@src/apis/petshop/dtos/category'
+import productApi from '@src/apis/petshop/product'
+import type ProductData from '@src/apis/petshop/dtos/product'
 
-import ProductSearch from '@src/components/Products/Search.vue';
-import ProductCard from '@src/components/Products/Card.vue';
-import brandApi from '@src/apis/petshop/brand';
-import type BrandData from '@src/apis/petshop/dtos/brand';
+import ProductSearch from '@src/components/Products/Search.vue'
+import ProductCard from '@src/components/Products/Card.vue'
+import brandApi from '@src/apis/petshop/brand'
+import type BrandData from '@src/apis/petshop/dtos/brand'
 
-const route = useRoute();
+const route = useRoute()
 
-const category = ref<CategoryData | null>();
-const products = ref<ProductData[]>([]);
-const categories = ref<CategoryData[]>([]);
-const brands = ref<BrandData[]>([]);
+const category = ref<CategoryData | null>()
+const products = ref<ProductData[]>([])
+const categories = ref<CategoryData[]>([])
+const brands = ref<BrandData[]>([])
 
-const loading = ref(false);
-const loadingProducts = ref(false);
+const loading = ref(false)
+const loadingProducts = ref(false)
 
 const selectedBrand = ref<string | null>(null)
 
@@ -27,49 +27,61 @@ const updateBrand = (brand: BrandData) => {
   if (brand.uuid === selectedBrand.value) {
     selectedBrand.value = null
   } else {
-    selectedBrand.value = brand.uuid;
+    selectedBrand.value = brand.uuid
   }
 
-  loadProducts();
+  loadProducts()
 }
 
 const loadData = async () => {
-  loading.value = true;
+  loading.value = true
 
-  const loadCategory = categoryApi.details(<string>route.params.uuid);
-  const loadCategories = categoryApi.all();
-  const loadBrands = brandApi.list();
+  const loadCategory = categoryApi.details(<string>route.params.uuid)
+  const loadCategories = categoryApi.all()
+  const loadBrands = brandApi.list()
 
-  const [cat, cats, brnds] = await Promise.all([loadCategory, loadCategories, loadBrands, loadProducts()]);
+  const [cat, cats, brnds] = await Promise.all([
+    loadCategory,
+    loadCategories,
+    loadBrands,
+    loadProducts()
+  ])
 
-  category.value = cat;
-  categories.value = cats;
-  brands.value = brnds;
+  category.value = cat
+  categories.value = cats
+  brands.value = brnds
 
-  loading.value = false;
+  loading.value = false
 }
 
 const loadProducts = async () => {
-  loadingProducts.value = true;
-  const prods = await productApi.list({category: route.params.uuid as string, limit: 15, brand: selectedBrand.value});
+  loadingProducts.value = true
+  const prods = await productApi.list({
+    category: route.params.uuid as string,
+    limit: 15,
+    brand: selectedBrand.value
+  })
 
-  products.value = prods;
-  loadingProducts.value = false;
+  products.value = prods
+  loadingProducts.value = false
 }
 
 onMounted(() => {
-  loadData();
-});
-
-watch(() => route.params.uuid, () => {
-  selectedBrand.value = null;
-  loadData();
+  loadData()
 })
+
+watch(
+  () => route.params.uuid,
+  () => {
+    selectedBrand.value = null
+    loadData()
+  }
+)
 </script>
 
 <template>
   <section class="my-8">
-    <ProductSearch/>
+    <ProductSearch />
   </section>
 
   <section v-if="loading" class="text-center">
@@ -89,10 +101,11 @@ watch(() => route.params.uuid, () => {
               </v-list-item>
             </template>
             <v-list-item
-                :to="{ name: 'category', params: { uuid: category.uuid } }"
-                v-for="category of categories"
-                :key="category.uuid"
-                :value="category.uuid">
+              :to="{ name: 'category', params: { uuid: category.uuid } }"
+              v-for="category of categories"
+              :key="category.uuid"
+              :value="category.uuid"
+            >
               <template v-slot:title>
                 <v-list-item-title class="text-capitalize">{{ category.title }}</v-list-item-title>
               </template>
@@ -110,12 +123,13 @@ watch(() => route.params.uuid, () => {
               </v-list-item>
             </template>
             <v-list-item
-                @click="updateBrand(brand)"
-                :active="selectedBrand === brand.uuid"
-                color="info"
-                v-for="brand of brands"
-                :key="brand.uuid"
-                :value="brand.uuid">
+              @click="updateBrand(brand)"
+              :active="selectedBrand === brand.uuid"
+              color="info"
+              v-for="brand of brands"
+              :key="brand.uuid"
+              :value="brand.uuid"
+            >
               <template v-slot:title>
                 <v-list-item-title class="text-capitalize">{{ brand.title }}</v-list-item-title>
               </template>
@@ -124,15 +138,10 @@ watch(() => route.params.uuid, () => {
         </v-list>
       </v-col>
 
-
-
       <v-col cols="10">
         <div class="mb-12">
           <h2 class="tw-text-5xl">{{ category.title }}</h2>
-          <v-breadcrumbs
-              class="tw-uppercase"
-              :items="['Homepage', 'Categories', category.title]">
-
+          <v-breadcrumbs class="tw-uppercase" :items="['Homepage', 'Categories', category.title]">
           </v-breadcrumbs>
         </div>
 
@@ -144,7 +153,7 @@ watch(() => route.params.uuid, () => {
         </div>
         <v-row v-else>
           <v-col v-for="product of products" :key="product.uuid" cols="3">
-            <ProductCard :product="product" :show-add-to-cart="true"/>
+            <ProductCard :product="product" :show-add-to-cart="true" />
           </v-col>
         </v-row>
       </v-col>

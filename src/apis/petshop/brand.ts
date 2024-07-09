@@ -11,7 +11,7 @@ class BrandApi {
         params: filters
       })
       .then((response) => response.data.data)
-      .then< BrandData[]>((items) => items.map((item: object) => BrandData.fromJson(item)))
+      .then<BrandData[]>((items) => items.map((item: object) => BrandData.fromJson(item)))
   }
 }
 

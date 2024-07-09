@@ -8,12 +8,6 @@ export default class BrandData {
   ) {}
 
   public static fromJson(data: any): BrandData {
-    return new BrandData(
-        data.uuid,
-        data.title,
-        data.slug,
-        data.created_at,
-        data.updated_at
-    )
+    return new BrandData(data.uuid, data.title, data.slug, data.created_at, data.updated_at)
   }
 }

@@ -15,26 +15,24 @@ import 'swiper/css/navigation'
 import 'swiper/css/autoplay'
 import './assets/main.css'
 
-
 const app = createApp(App)
 const theme: ThemeDefinition = {
-    dark: false,
-    colors: {
-        primary: '#4EC690',
-        'primary-light': '#EDF5F1'
-    }
+  dark: false,
+  colors: {
+    primary: '#4EC690',
+    'primary-light': '#EDF5F1'
+  }
 }
 
 const vuetify = createVuetify({
-    components,
-    directives,
-    theme: {
-        themes: {
-            light: theme
-        }
+  components,
+  directives,
+  theme: {
+    themes: {
+      light: theme
     }
+  }
 })
-
 
 app.use(vuetify)
 app.use(createPinia())

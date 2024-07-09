@@ -11,12 +11,6 @@ export default class CategoryData {
   ) {}
 
   public static fromJson(data: any): CategoryData {
-    return new CategoryData(
-        data.uuid,
-        data.slug,
-        data.title,
-        data.created_at,
-        data.updated_at
-    )
+    return new CategoryData(data.uuid, data.slug, data.title, data.created_at, data.updated_at)
   }
 }
